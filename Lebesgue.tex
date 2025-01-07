@@ -1,0 +1,134 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{bbm}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Some notions of Measure Theory}
+\author{Stefan Kapetanović}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This is a collection of some measure theoretic notions without much rigor. Main idea behind this is to make it easier to intuitively understand reasons for the measure theoretic approaches in path tracing.
+\end{abstract}
+
+\section{Lebesgue integration}
+\subsection{Initial motivation}
+
+Reason for introducing a new concept of integration is to cover another set of mathematical objects and to define what it means to integrate them. Looking at a standard Riemann integral, we can find functions that are not integrable. As an example, let's define a sequence of functions:
+
+\[ S_n(x) = \begin{cases}
+    1 & x = \frac{p}{q},\: p \in \mathbb{N}_0,\: q \in \mathbb{N},\: q \leq n \\
+    0 & otherwise
+\end{cases},\: x \in [0, 1] \]
+
+Every function in this sequence is Riemann integrable if we know that $n$ is finite. For example, for $n=2$, we know that $q$ can only be 1 or 2. Since $x \in [0, 1]$ must hold, we know that $p$ can only take values that will leave fraction $\frac{p}{q}$ in $[0, 1]$ range. These are possible cases:
+
+\[\frac{0}{1},\;\frac{1}{1},\;\frac{0}{2},\;\frac{1}{2},\;\frac{2}{2}\]
+
+From this, we can see that we only have three distinct fractions ie. values for $x$ for which the function $S_2(x)$ has a value 1. This would be the definition for second function in the sequence:
+
+\[S_2(x) = \begin{cases}
+    1 & x \in \{0,\;\frac{1}{2},\;1\} \\
+    0 & otherwise
+\end{cases},\: x \in [0, 1] \]
+
+This function is continuous everywhere, except in 3 points, because it has value 0 everywhere and value 1 only in those 3 points, so we can find its Riemann integral because the number of discontinuities is finite. Using the same reasoning for any function in this sequence for finite $n$, we can see that the number of points in which those functions are discontinuous is finite, meaning that they also have Riemann integral. As we go to higher values of $n$, every next function has a value of 1 for more and more fractions ie. rational numbers. As $n$ goes to infinity, $q$ starts taking any natural number as value, and in this process $\frac{p}{q}$ starts representing any rational number in $[0, 1]$ range.
+
+\[ \lim_{n\to\infty}S_n(x) = \begin{cases}
+    1 & x \in \mathbb{Q}_{0}^{+} \\
+    0 & otherwise
+\end{cases} = \begin{cases}
+    1 & x \in \mathbb{Q} \\
+    0 & otherwise
+\end{cases},\; x \in [0, 1] \]
+
+This is Dirichlet function, which is often represented as an indicator function $\mathbbm{1}_{\mathbb{Q}}(x)$ for the set of rational numbers, meaning it has a value 1 for any element in that set. Since it represents the limit of the previous sequence, this function has infinite number of discontinuities (every rational number in range[0, 1]). If we try to find Riemann integral by upper and lower approximations, one would equal 0 and the other 1, meaning that there is no well defined single value, so the integral does not exist. On the other hand, we know that $\mathbb{Q}$ is countable and $\mathbb{R}\backslash\mathbb{Q}$ is uncountable, so intuitively, irrational numbers should dictate the final value, which is 0. The problem is that Riemann integration can't help us answer this. In order to find a solution, we need a new kind of integral. To be able to define it, we will first introduce a notion of measure.
+
+\subsection{Notion of Measure}
+Measure tries to generalize notions like length, area, count, etc. and to put them in a more formal context, by trying to assign value to a certain set. As an example, $[a, b]$ range is a set, and we can try to assign a value to it, somehow. One straightforward approach is to simply assign an intuitive notion of length to this range. We do this by defining a function that takes a set and outputs a number.
+
+\[ L([a, b]) = b - a \]
+
+We can now think of some properties that this length has in order to try and abstract properties of measure. Lets imagine a line of some length. First, we measure one smaller portion of this line. This portion is just a set of points that we will denote as $S_1$ and its length is $L(S_1)$. Now, we measure another portion $S_2$ that does not overlap $S_1$ and get a length of $L(S_2)$. Intuitively, we know that if we join these two pieces together, their total length should just be the sum of individual lengths. This is one property that we found.
+
+\[ L(S_1 \cup S_2) = L(S_1) + L(S_2),\;given\;that\; S_1 \cap S_2 = \varnothing \]
+
+Another thing that we can intuitively conclude about length is the following. We observe part of the line $S_1$ with length $L(S_1)$. Now, we measure one smaller portion of that part $S_2$ and get the length $L(S_2)$. If we remove that smaller part, we intuitively know that the length of the remaining portion is the difference of lengths of larger and smaller part.
+
+\[ L(S_1 \backslash S_2) = L(S_1) - L(S_2),\;given\;that\; S_1 \cap S_2 = S_2 \]
+
+We can also partially overlap two pieces $S_1$ and $S_2$ and ask what is the length of their intersection. To find this, we can add two individual lengths, but in that case, we have counted the length of intersection twice, so we also need to subtract it once.
+
+\[ L(S_1 \cup S_2) = L(S_1) + L(S_2) - L(S_1 \cap S_2) \]
+
+From this, we derive the length of intersection.
+
+\[ L(S_1 \cap S_2) = L(S_1) + L(S_2) - L(S_1 \cup S_2) \]
+
+There is also a question of what would be the length of "empty" line ie. empty set. Intuitively, we would expect this to be 0.
+
+\[ L(\varnothing) = 0 \]
+
+From all of these things, we can try to define what an abstract notion of measure means, by saying that if the length $L$ is a measure and $S_1$ and $S_2$ are measurable, meaning we can assign lengths $L(S_1)$ and $L(S_2)$ to them, then the following things are also measurable:
+
+\begin{itemize}
+    \item $S_1 \cup S_2$
+    \item $S_1 \backslash S_2$
+    \item $S_1 \cap S_2$
+    \item $\varnothing$
+\end{itemize}
+
+Notice that we can extend a measure of $S_1 \cup S_2$, where $S_1$ and $S_2$ are disjoint, to the measure of a union of arbitrary number of countable sets (if we have them), and not just those two. We can also calculate this measure from the measures of individual sets just like we did when we had only two sets (same thing holds for intersections and differences).
+
+\[ L(\bigcup\limits_{i=1}^{k} S_i) = L(S_1) + L(S_2) + \dots = \sum\limits_{i=1}^{k}L(S_i),\;where\;k \in \mathbb{N} \]
+
+Now that we extracted these properties, we can try to express them with a smaller number of rules, before moving onto experimenting with them and seeing if they are useful. This is not strictly necessary, but it allows us to be more clear about what kind of system we are dealing with. To move to a smaller set of rules, we will need some relations from set theory. Suppose we have some set and two of its subsets $A_1$ and $A_2$. The following relations hold.
+
+\[ A_1 \backslash A_2 = A_1 \cap A_2^c \]
+\[ A_1 \cap A_2 = (A_1^c \cup A_2^c)^c \]
+
+Looking at these relations and at the things that we concluded should be measurable, we can see that if we add a rule that tells us that complement of a measurable set must be measurable, then we don't need a rule for difference, since it is covered by intersection and complement rules. But, we don't even need intersection rule since it is covered by union and complement rules. So we are left with rules for union, complement and empty set.
+Of course, it is arbitrary which set of rules we actually pick, as long as it is minimal and can generate remaining rules.
+
+\subsection{Ground rules}
+
+All the previous properties are usually expressed with two groups of rules. First group contains rules that describe the domain of a measure function (length in previous section). They tell us what is measurable. Second group contains rules that describe measure function itself.
+
+To define what is measurable ie. which sets can be mapped to numbers using measure function, we first define a set $G$ that serves as a playground, and then we sample subsets from it, forming another set that contains these subsets. This choice of sets is arbitrary as long as the rules that define what is measurable hold. This new set of subsets is called $\sigma$-algebra if it obeys all the rules, and it defines what can be measured. If we denote a set of subsets of $G$ by $S$, then it is $\sigma$-algebra if the following is satisfied:
+
+\begin{itemize}
+    \item $\varnothing \in S$ - We must always be able to assign value to empty set, which is zero, just like with the length example, so the empty set must always be part of $\sigma$-algebra.
+    \item $A \in S \implies A^c \in S,\;A^c = G \backslash A$ - If we can measure one part of G (think about line), then we can measure remaining part of G. Additionally, since we know from the first rule that an empty set must be in $\sigma$-algebra, then based on the current rule we know that its complement must also be in there ie. $\varnothing^c = G \in S$. This tells us that the space we are working with must itself be measurable.
+    \item $S_i \in S \implies \bigcup S_i \in S$ - Countable union of measurable subsets of $G$ is also measurable. Intuitively, this tells us that we can combine pieces that we already measured in order to measure some other part.
+\end{itemize}
+
+Now that we know what it even means for something to be measurable, we can define properties of measure function that will map measurable sets to numbers. If we denote this function by $\mu$ and $\sigma$-algebra by $S$, then the following holds:
+
+\begin{itemize}
+    \item $\mu: S \rightarrow \mathbb{R}_{0}^{+}$ - It assigns non-negative number to a measurable set. This rule comes naturally when thinking about length or size of things in the usual sense. There is a variation of Measure Theory where measure function assigns any real number to a measurable set.
+    \item $\mu(\varnothing) = 0$ - Just like with length, empty set always has a measure 0.
+    \item $\mu(\bigcup S_i) = \sum\mu(S_i)\;given\;that\; S_i \in S,\;S_i \cap S_j = \varnothing\:(i \neq j)$ - If the measurable sets are disjoint, then the measure of their union is the sum of their individual measures.
+\end{itemize}
+
+Given all these rules we can define a Measure Space that groups them all together. If we denote global set we are working with as $G$, $\sigma$-algebra as $S$, and measure function as $\mu$, then a Measure Space $M$ is given by a triplet:
+
+\[ M = (G, S, \mu)\]
+
+\end{document}
