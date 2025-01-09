@@ -107,24 +107,73 @@ If we have a measure $\mu$, then a null set $N$, with respect to that measure, i
 
 \[ \mu(N) = 0 \]
 
-We know that empty set is always a null set. An example of a null set that is not an empty set is the following. Lets imagine a real line and focus on rational numbers. We will try to cover all the rational numbers using sticks. We start with a stick of size $1$ and place it onto the first rational number. This can be done because they are countable ie. it is possible to find a bijection $\mathbb{Q}\to\mathbb{N}$. Our first stick will cover more than one rational number, but we don't care as long as the first one is covered. Next, we cover second rational number with stick of size $\frac{1}{2}$, third one with stick of size $\frac{1}{4}$ etc. We do this for all rational numbers, and we end up with the total length $L$ for all sticks.
+We know that empty set is always a null set. An example of a null set that is not an empty set is the following. Lets imagine a real line and focus on rational numbers. We will try to cover all the rational numbers using sticks. We start with a stick of size $1$ and place it onto the first rational number. This can be done because they are countable ie. it is possible to find a bijection $\mathbb{Q}\to\mathbb{N}$. Our first stick will cover more than one rational number, but we don't care as long as the first one is covered. Next, we cover second rational number with stick of size $\frac{1}{2}$, third one with the stick of size $\frac{1}{4}$ etc. We do this for all rational numbers, and we end up with the total length $L$ for all sticks.
 
 \[ L=\sum_{i=0}^{\infty}\frac{1}{2^i}=2\]
 
 This means that we can cover all rational numbers with length 2. But, nothing stops us from using smaller sticks. For example, first stick can have the size of $\frac{1}{10000}$, second $\frac{1}{10000^2}$ etc. By looking at the limit, where stick sizes approach 0, the total length also approaches zero.
 
-\[ \lim_{x \to 0}\sum_{i=1}^{\infty}\frac{1}{x^i}=(\lim_{x \to 0}\sum_{i=0}^{\infty}\frac{1}{x^i})-1=\lim_{x \to 0} (\frac{1}{1-x} - 1)=0 \]
+\[ \lim_{x \to 0}\sum_{i=1}^{\infty}\frac{1}{x^i}=\lim_{x \to 0}(\sum_{i=0}^{\infty}\frac{1}{x^i}-1)=\lim_{x \to 0} (\frac{1}{1-x} - 1)=0 \]
 
 After all, it seems that the length of all rational numbers is just 0. This way, we have found that $\mu(\mathbb{Q})=0$ for length measure $\mu$ and that $\mathbb{Q}$ is a null set under that measure.
 \newline\indent Similarly, we can try to find what would be the measure of the line within $\mathbb{R}^2$, given standard measure for rectangle area $\mu$. Lets take a straight strip of plane, with width $w$, and place it over this line, such that line is in the middle. Now, we partition this strip into rectangles that have width $w$, just like the strip, and length $l$. Every rectangle now covers portion of the line with length $l$. All that is left to do now, is to shrink rectangles. As we do this, they become line segments with no area. If $p$ is the given line, $S$ chosen strip, $R_i$ rectangles, and $\mu$ standard measure for rectangle area, we have
 
 \[\mu(p)=\lim_{w \to 0}\mu(S)=\lim_{w \to 0}\sum\mu(R_i)=\lim_{w \to 0}\sum lw=0\]
 
-Lets take multiple lines that are discontinuous, meaning that they are not perfectly aligned next to each other in parallel. Then, we can use the same argument, just with multiple strips, to show that the measure of their union is 0.
+Lets take countable number of lines in $\mathbb{R}^2$. Then, we can use the same argument, just with multiple strips, to show that the measure of their union is 0 (we can ignore their intersections, since they are countable within the line).
 
-\[ \mu(\bigcup p_i = \lim_{w \to 0}\mu(\bigcup S_i) = \lim_{w \to 0}\sum\mu(S_i) = 0 \]
+\[ \mu(\bigcup p_i) = \lim_{w \to 0}\mu(\bigcup S_i) = \lim_{w \to 0}\sum\mu(S_i) = 0 \]
 
-This are additional examples of null sets, now in $\mathbb{R}^2$ and with different measure. One important thing to note from these examples is that it seems that the measure of some measurable subset is always zero when that subset consists of countable number of objects of lower dimension than the dimension that measure $\mu$ operates on. In the first example, a countable set of points embedded within the line has no length (nor does one point). In the second example, line and countable union of lines do not have area. 
+These are additional examples of null sets, now in $\mathbb{R}^2$ and with a different measure. One important thing to note from these examples is that it seems that the measure of some measurable subset is always zero when that subset consists of countable number of objects of lower dimension than the dimension that measure $\mu$ operates on. In the first example, a countable set of points embedded within the line has no length. In the second example, line and countable union of lines do not have area. 
+\newline\indent Apart from demonstrating that there are null sets other than empty set, these examples indicate that it is intuitive to say that any subset of a null set has a measure 0. The problem is that it can happen that a null set has a subset that is not measurable. As an example, lets construct one such case. Lets take a set $G=\{a,b,c\}$, with $\sigma$-algebra $S=\{\varnothing, \{a\},\{b,c\},\{a,b,c\}\}$ and a measure $\mu$ defined as
+
+\[\mu=\begin{cases}
+    \varnothing & \to 0 \\
+    \{a\} & \to 1 \\
+    \{b,c\} & \to 0 \\
+    \{a,b,c\} & \to 1
+\end{cases}\]
+
+Now, since $\{b,c\}$ has a measure 0, it is a null set, but its subsets $\{b\}$ and $\{c\}$ are not measurable, since they are not in $\sigma$-algebra S. Since, after all, we would like measures to behave intuitively (like lengths), it makes sense to try to define that every subset of a null set has a measure 0.
+
+\[ \mu(B)=0,\;A \subseteq B \implies \mu(A)=0 \]
+
+If we define this, it allows us to create a new measure space where we don't have to worry about null space subsets that are not measurable. For this purpose, we introduce a concept of a measure space completion, which creates larger measure space. We will work with some measure space $M=(G,S,\mu)$. First, we collect all subsets of null sets into one set $N$.
+
+\[ N=\{X:X \subseteq B,\;B \in S,\;\mu(B)=0\} \]
+
+Now, we will expand measure space $M$ in the sense that we will make more things measurable by expanding $\sigma$-algebra $S$. To do this, we will use property of measure of unions. Since a measure of a union of sets is a sum of measures of those sets, we know that the following must hold
+
+\[ \mu(A)=0,\;D \in S \implies \mu(D \cup A)=\mu(D)+\mu(A)=\mu(D) \]
+
+This means that we can use previously constructed set $N$ and combine all of its elements with the elements of $\sigma$-algebra S, thus creating larger $\sigma$-algebra without changing a measure of previously measurable sets. Lets denote larger $\sigma$-algebra with $S_{L}$.
+
+\[ S_{L}=\{D \cup A: D \in S,\;A \in N\} \]
+
+Now, the new measure $\mu_{L}$ of this larger measure space can stay the same for all previous values, but also define values for new sets in $\sigma$-algebra.
+
+\[ \mu_{L}(D \cup A)=\mu(D) + \mu(A) = \mu(D) \]
+
+This way, we have constructed a new measure space $M_{L}$ that is called the completion of the measure space $M$.
+
+\[ M_{L}=(G,S_{L},\mu_{L}) \]
+
+The whole point of doing this is to, in a sense, have a space to work with, without worrying about whatever is contained within its null sets. As an example, lets try to expand a measure space that we used in example for the existence of some subsets of null sets that are not measurable. We worked with this measure space
+
+\[ G=\{1,2,3\},\;S=\{\varnothing, \{a\},\{b,c\},\{a,b,c\}\},\; \mu=\begin{cases}
+    \varnothing & \to 0 \\
+    \{a\} & \to 1 \\
+    \{b,c\} & \to 0 \\
+    \{a,b,c\} & \to 1
+\end{cases} \]
+
+In this case, there is only one null set $\{b,c\}$, apart from empty set. Therefore, a set containing all subsets of null sets is
+
+\[N=\{\varnothing, \{a\}, \{b\}, \{a,b\}\}\]
+
+Combining this with $\sigma$-algebra $S$ using union, we get
+
+\[ S_{L}=\{\} \]
 
 \subsection{Examples of measures}
 
@@ -157,7 +206,7 @@ Every function in this sequence is Riemann integrable if we know that $n$ is fin
 From this, we can see that we only have three distinct fractions ie. values for $x$ for which the function $S_2(x)$ has a value 1. This would be the definition for second function in the sequence:
 
 \[S_2(x) = \begin{cases}
-    1 & x \in \{0,\;\frac{1}{2},\;1\} \\
+    1 & x \in \{0,\frac{1}{2},1\} \\
     0 & otherwise
 \end{cases},\: x \in [0, 1] \]
 
