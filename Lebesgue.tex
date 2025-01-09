@@ -16,6 +16,7 @@
 \usepackage{amssymb}
 \usepackage{amsbsy}
 \usepackage{bbm}
+\usepackage{mathabx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 \title{Some notions of Measure Theory}
@@ -28,38 +29,8 @@
 This is a collection of some measure theoretic notions without much rigor. Main idea behind this is to make it easier to intuitively understand reasons for the measure theoretic approaches in path tracing.
 \end{abstract}
 
-\section{Lebesgue integration}
-\subsection{Initial motivation}
-
-Reason for introducing a new concept of integration is to cover another set of mathematical objects and to define what it means to integrate them. Looking at a standard Riemann integral, we can find functions that are not integrable. As an example, let's define a sequence of functions:
-
-\[ S_n(x) = \begin{cases}
-    1 & x = \frac{p}{q},\: p \in \mathbb{N}_0,\: q \in \mathbb{N},\: q \leq n \\
-    0 & otherwise
-\end{cases},\: x \in [0, 1] \]
-
-Every function in this sequence is Riemann integrable if we know that $n$ is finite. For example, for $n=2$, we know that $q$ can only be 1 or 2. Since $x \in [0, 1]$ must hold, we know that $p$ can only take values that will leave fraction $\frac{p}{q}$ in $[0, 1]$ range. These are possible cases:
-
-\[\frac{0}{1},\;\frac{1}{1},\;\frac{0}{2},\;\frac{1}{2},\;\frac{2}{2}\]
-
-From this, we can see that we only have three distinct fractions ie. values for $x$ for which the function $S_2(x)$ has a value 1. This would be the definition for second function in the sequence:
-
-\[S_2(x) = \begin{cases}
-    1 & x \in \{0,\;\frac{1}{2},\;1\} \\
-    0 & otherwise
-\end{cases},\: x \in [0, 1] \]
-
-This function is continuous everywhere, except in 3 points, because it has value 0 everywhere and value 1 only in those 3 points, so we can find its Riemann integral because the number of discontinuities is finite. Using the same reasoning for any function in this sequence for finite $n$, we can see that the number of points in which those functions are discontinuous is finite, meaning that they also have Riemann integral. As we go to higher values of $n$, every next function has a value of 1 for more and more fractions ie. rational numbers. As $n$ goes to infinity, $q$ starts taking any natural number as value, and in this process $\frac{p}{q}$ starts representing any rational number in $[0, 1]$ range.
-
-\[ \lim_{n\to\infty}S_n(x) = \begin{cases}
-    1 & x \in \mathbb{Q}_{0}^{+} \\
-    0 & otherwise
-\end{cases} = \begin{cases}
-    1 & x \in \mathbb{Q} \\
-    0 & otherwise
-\end{cases},\; x \in [0, 1] \]
-
-This is Dirichlet function, which is often represented as an indicator function $\mathbbm{1}_{\mathbb{Q}}(x)$ for the set of rational numbers, meaning it has a value 1 for any element in that set. Since it represents the limit of the previous sequence, this function has infinite number of discontinuities (every rational number in range[0, 1]). If we try to find Riemann integral by upper and lower approximations, one would equal 0 and the other 1, meaning that there is no well defined single value, so the integral does not exist. On the other hand, we know that $\mathbb{Q}$ is countable and $\mathbb{R}\backslash\mathbb{Q}$ is uncountable, so intuitively, irrational numbers should dictate the final value, which is 0. The problem is that Riemann integration can't help us answer this. In order to find a solution, we need a new kind of integral. To be able to define it, we will first introduce a notion of measure.
+\section{Measure}
+Finding formulas for volumes of various different objects (like a sphere), which were often represented as sets, led to a natural question of whether it is possible to find a formula for the volume of any set that is a subset of an arbitrary dimensional Euclidean space. Because of this, there was an attempt to construct a mapping $\mu:\mathbb{R}^k\to\mathbb{R}_{0}^{+}$ that would take some arbitrary subset of $\mathbb{R}^k$ and assign a positive number to it. This consideration of arbitrary subsets eventually led to the Banach-Tarski paradox, which represents an "impossible" construction where we consider unit ball $B\in\mathbb{R}^3$ that is divided into disjoint subsets. Then, these subsets can be isometrically mapped such that we end up with 2 unit balls. This is a completely valid construction, but it doesn't align with our notion of volume, since it should be invariant under isometries (just moving a thing should not change its volume). Finally, this led to attempts to characterize subsets to which we can assign volume (or n-dimensional volume), first for Euclidean spaces, and then for other, more complicated ones.
 
 \subsection{Notion of Measure}
 Measure tries to generalize notions like length, area, count, etc. and to put them in a more formal context, by trying to assign value to a certain set. As an example, $[a, b]$ range is a set, and we can try to assign a value to it, somehow. One straightforward approach is to simply assign an intuitive notion of length to this range. We do this by defining a function that takes a set and outputs a number.
@@ -122,7 +93,7 @@ To define what is measurable ie. which sets can be mapped to numbers using measu
 Now that we know what it even means for something to be measurable, we can define properties of measure function that will map measurable sets to numbers. If we denote this function by $\mu$ and $\sigma$-algebra by $S$, then the following holds:
 
 \begin{itemize}
-    \item $\mu: S \rightarrow \mathbb{R}_{0}^{+}$ - It assigns non-negative number to a measurable set. This rule comes naturally when thinking about length or size of things in the usual sense. There is a variation of Measure Theory where measure function assigns any real number to a measurable set.
+    \item $\mu: S \rightarrow [0, \infty]$ - It assigns non-negative number to a measurable set. This rule comes naturally when thinking about length or size of things in the usual sense. There is a variation of Measure Theory where measure function assigns any real number to a measurable set.
     \item $\mu(\varnothing) = 0$ - Just like with length, empty set always has a measure 0.
     \item $\mu(\bigcup S_i) = \sum\mu(S_i)\;given\;that\; S_i \in S,\;S_i \cap S_j = \varnothing\:(i \neq j)$ - If the measurable sets are disjoint, then the measure of their union is the sum of their individual measures.
 \end{itemize}
@@ -130,5 +101,76 @@ Now that we know what it even means for something to be measurable, we can defin
 Given all these rules we can define a Measure Space that groups them all together. If we denote global set we are working with as $G$, $\sigma$-algebra as $S$, and measure function as $\mu$, then a Measure Space $M$ is given by a triplet:
 
 \[ M = (G, S, \mu)\]
+
+\subsection{Null set and measure space completion}
+If we have a measure $\mu$, then a null set $N$, with respect to that measure, is a set with measure 0 ie.
+
+\[ \mu(N) = 0 \]
+
+We know that empty set is always a null set. An example of a null set that is not an empty set is the following. Lets imagine a real line and focus on rational numbers. We will try to cover all the rational numbers using sticks. We start with a stick of size $1$ and place it onto the first rational number. This can be done because they are countable ie. it is possible to find a bijection $\mathbb{Q}\to\mathbb{N}$. Our first stick will cover more than one rational number, but we don't care as long as the first one is covered. Next, we cover second rational number with stick of size $\frac{1}{2}$, third one with stick of size $\frac{1}{4}$ etc. We do this for all rational numbers, and we end up with the total length $L$ for all sticks.
+
+\[ L=\sum_{i=0}^{\infty}\frac{1}{2^i}=2\]
+
+This means that we can cover all rational numbers with length 2. But, nothing stops us from using smaller sticks. For example, first stick can have the size of $\frac{1}{10000}$, second $\frac{1}{10000^2}$ etc. By looking at the limit, where stick sizes approach 0, the total length also approaches zero.
+
+\[ \lim_{x \to 0}\sum_{i=1}^{\infty}\frac{1}{x^i}=(\lim_{x \to 0}\sum_{i=0}^{\infty}\frac{1}{x^i})-1=\lim_{x \to 0} (\frac{1}{1-x} - 1)=0 \]
+
+After all, it seems that the length of all rational numbers is just 0. This way, we have found that $\mu(\mathbb{Q})=0$ for length measure $\mu$ and that $\mathbb{Q}$ is a null set under that measure.
+\newline\indent Similarly, we can try to find what would be the measure of the line within $\mathbb{R}^2$, given standard measure for rectangle area $\mu$. Lets take a straight strip of plane, with width $w$, and place it over this line, such that line is in the middle. Now, we partition this strip into rectangles that have width $w$, just like the strip, and length $l$. Every rectangle now covers portion of the line with length $l$. All that is left to do now, is to shrink rectangles. As we do this, they become line segments with no area. If $p$ is the given line, $S$ chosen strip, $R_i$ rectangles, and $\mu$ standard measure for rectangle area, we have
+
+\[\mu(p)=\lim_{w \to 0}\mu(S)=\lim_{w \to 0}\sum\mu(R_i)=\lim_{w \to 0}\sum lw=0\]
+
+Lets take multiple lines that are discontinuous, meaning that they are not perfectly aligned next to each other in parallel. Then, we can use the same argument, just with multiple strips, to show that the measure of their union is 0.
+
+\[ \mu(\bigcup p_i = \lim_{w \to 0}\mu(\bigcup S_i) = \lim_{w \to 0}\sum\mu(S_i) = 0 \]
+
+This are additional examples of null sets, now in $\mathbb{R}^2$ and with different measure. One important thing to note from these examples is that it seems that the measure of some measurable subset is always zero when that subset consists of countable number of objects of lower dimension than the dimension that measure $\mu$ operates on. In the first example, a countable set of points embedded within the line has no length (nor does one point). In the second example, line and countable union of lines do not have area. 
+
+\subsection{Examples of measures}
+
+Before moving on, here are some examples of measures.
+
+\subsubsection{Borel measure on $\mathbb{R}^n$}
+This is a measure that is defined on the so called Borel algebra, which is a specific $\sigma$-algebra (note that the Borel algebra is more general, but we only consider Euclidean spaces). Before its definition, lets consider what it represents in 2-dimensional Euclidean space. There, it tries to say that any rectangle in the plane is measurable and assigns area to it. To represent arbitrary rectange, we will use Cartesian product of two ranges $[a_1, b_1]\times[a_2, b_2]$, which just gives us a new set that contains all possible pairs of points with first coordinate from the first range, and second coordinate from the second range. Now, we just say that all such rectangles are measurable by putting them into $\sigma$-algebra. Additionally, we naturally assign area to them by constructing measure $\mu$, such that
+\[\mu([a_1, b_1]\times[a_2, b_2])=(b_1-a_1)(b_2-a_2)\]
+which is just a standard rectangle area. Using this, we can combine rectangles in the plane to approximate some weird shape. Then, we can find area of this shape by summing areas of rectangles, because we know it is measurable since it is a union of measurable rectangles. In order to have $\sigma$-algebra, apart from rectangles, we also need to add all possible unions of rectangles, and complements of all elements, since they are also measurable.
+\newline\indent To extend this to $\mathbb{R}^n$, we just need a way to represent n-dimensional rectangles and their volume. We represent rectangles using Cartesian products and their volume using the product of lengths of their sides. Represented with formulas, this is n-dimensional rectangle with its measure:
+
+\[ [a_1,b_1]\times[a_2,b_2]\times\dots\times[a_n,b_n] = \prod_{i=1}^{n}[a_i,b_i] \]
+\[ \mu(\prod_{i=1}^{n}[a_i,b_i])=(b_1-a_1)(b_2-a_2)\dots(b_n-a_n)=\prod_{i=1}^{n}(b_i-a_i) \]
+
+\section{Lebesgue integral}
+Lebesgue integration is one of the main notions that will be introduced because it is required for integration of more exotic functions and it also offers a nice conceptual framework for defining things like radiance in a more measure theoretic way.
+
+\subsection{Initial motivation}
+Reason for introducing a new concept of integration is to cover another set of mathematical objects and to define what it means to integrate them. Looking at a standard Riemann integral, we can find functions that are not integrable. As an example, let's define a sequence of functions:
+
+\[ S_n(x) = \begin{cases}
+    1 & x = \frac{p}{q},\: p \in \mathbb{N}_0,\: q \in \mathbb{N},\: q \leq n \\
+    0 & otherwise
+\end{cases},\: x \in [0, 1] \]
+
+Every function in this sequence is Riemann integrable if we know that $n$ is finite. For example, for $n=2$, we know that $q$ can only be 1 or 2. Since $x \in [0, 1]$ must hold, we know that $p$ can only take values that will leave fraction $\frac{p}{q}$ in $[0, 1]$ range. These are possible cases:
+
+\[\frac{0}{1},\;\frac{1}{1},\;\frac{0}{2},\;\frac{1}{2},\;\frac{2}{2}\]
+
+From this, we can see that we only have three distinct fractions ie. values for $x$ for which the function $S_2(x)$ has a value 1. This would be the definition for second function in the sequence:
+
+\[S_2(x) = \begin{cases}
+    1 & x \in \{0,\;\frac{1}{2},\;1\} \\
+    0 & otherwise
+\end{cases},\: x \in [0, 1] \]
+
+This function is continuous everywhere, except in 3 points, because it has value 0 everywhere and value 1 only in those 3 points, so we can find its Riemann integral because the number of discontinuities is finite. Using the same reasoning for any function in this sequence for finite $n$, we can see that the number of points in which those functions are discontinuous is finite, meaning that they also have Riemann integral. As we go to higher values of $n$, every next function has a value of 1 for more and more fractions ie. rational numbers. As $n$ goes to infinity, $q$ starts taking any natural number as value, and in this process $\frac{p}{q}$ starts representing any rational number in $[0, 1]$ range.
+
+\[ \lim_{n\to\infty}S_n(x) = \begin{cases}
+    1 & x \in \mathbb{Q}_{0}^{+} \\
+    0 & otherwise
+\end{cases} = \begin{cases}
+    1 & x \in \mathbb{Q} \\
+    0 & otherwise
+\end{cases},\; x \in [0, 1] \]
+
+This is Dirichlet function, which is often represented as an indicator function $\mathbbm{1}_{\mathbb{Q}}(x)$ for the set of rational numbers, meaning it has a value 1 for any element in that set. Since it represents the limit of the previous sequence, this function has infinite number of discontinuities (every rational number in range[0, 1]). If we try to find Riemann integral by upper and lower approximations, one would equal 0 and the other 1, meaning that there is no well defined single value, so the integral does not exist. On the other hand, we know that $\mathbb{Q}$ is countable and $\mathbb{R}\backslash\mathbb{Q}$ is uncountable, so intuitively, irrational numbers should dictate the final value, which is 0. The problem is that Riemann integration can't help us answer this. In order to find a solution, we need a new kind of integral. To be able to define it, we need a previously introduced notion of measure.
 
 \end{document}
