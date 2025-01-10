@@ -30,7 +30,7 @@ This is a collection of some measure theoretic notions without much rigor. Main 
 \end{abstract}
 
 \section{Measure}
-Finding formulas for volumes of various different objects (like a sphere), which were often represented as sets, led to a natural question of whether it is possible to find a formula for the volume of any set that is a subset of an arbitrary dimensional Euclidean space. Because of this, there was an attempt to construct a mapping $\mu:\mathbb{R}^k\to\mathbb{R}_{0}^{+}$ that would take some arbitrary subset of $\mathbb{R}^k$ and assign a positive number to it. This consideration of arbitrary subsets eventually led to the Banach-Tarski paradox, which represents an "impossible" construction where we consider unit ball $B\in\mathbb{R}^3$ that is divided into disjoint subsets. Then, these subsets can be isometrically mapped such that we end up with 2 unit balls. This is a completely valid construction, but it doesn't align with our notion of volume, since it should be invariant under isometries (just moving a thing should not change its volume). Finally, this led to attempts to characterize subsets to which we can assign volume (or n-dimensional volume), first for Euclidean spaces, and then for other, more complicated ones.
+Finding formulas for volumes of various different objects (like a sphere), which were often represented as sets, led to a natural question of whether it is possible to find a formula for the volume of any set that is a subset of an arbitrary dimensional Euclidean space. Because of this, there was an attempt to construct a mapping $\mu:\mathbb{R}^k\to[0,\infty]$ that would take some arbitrary subset of $\mathbb{R}^k$ and assign a positive number to it. This consideration of arbitrary subsets eventually led to the Banach-Tarski paradox, which represents an "impossible" construction where we consider unit ball $B\in\mathbb{R}^3$ that is divided into disjoint subsets. Then, these subsets can be isometrically mapped such that we end up with 2 unit balls. This is a completely valid construction, but it doesn't align with our notion of volume, since it should be invariant under isometries (just moving a thing should not change its volume). Finally, this led to attempts to characterize subsets to which we can assign volume (or n-dimensional volume), first for Euclidean spaces, and then for other, more complicated ones.
 
 \subsection{Notion of Measure}
 Measure tries to generalize notions like length, area, count, etc. and to put them in a more formal context, by trying to assign value to a certain set. As an example, $[a, b]$ range is a set, and we can try to assign a value to it, somehow. One straightforward approach is to simply assign an intuitive notion of length to this range. We do this by defining a function that takes a set and outputs a number.
@@ -100,7 +100,13 @@ Now that we know what it even means for something to be measurable, we can defin
 
 Given all these rules we can define a Measure Space that groups them all together. If we denote global set we are working with as $G$, $\sigma$-algebra as $S$, and measure function as $\mu$, then a Measure Space $M$ is given by a triplet:
 
-\[ M = (G, S, \mu)\]
+\[ M=(G,S,\mu)\]
+
+Important note on this notation for measure space is that $S$ doesn't necessarily need to be represented as $\sigma$-algebra. Instead, that can be implied. As an example, lets say we have a set $A$ that contains $a$ and $b$. Some measure space can then be written as
+
+\[ M=(G,A,\mu) \]
+
+even though we didn't specify all elements of $A$, which it would need to have in order to be $\sigma$-algebra. Instead, we gave elements $a$ and $b$ and we assumed that the corresponding $\sigma$-algebra is generated from them, meaning that we start with those elements and apply rules for $\sigma$-algebra over and over again, until we construct a minimal $\sigma$-algebra that satisfies all those rules. For example, if we know that $a$ and $b$ are in $A$, then we also know that their union must be in $A$, in order for $A$ to eventually satisfy all rules and become $\sigma$-algebra.
 
 \subsection{Null set and measure space completion}
 If we have a measure $\mu$, then a null set $N$, with respect to that measure, is a set with measure 0 ie.
@@ -116,7 +122,7 @@ This means that we can cover all rational numbers with length 2. But, nothing st
 \[ \lim_{x \to 0}\sum_{i=1}^{\infty}\frac{1}{x^i}=\lim_{x \to 0}(\sum_{i=0}^{\infty}\frac{1}{x^i}-1)=\lim_{x \to 0} (\frac{1}{1-x} - 1)=0 \]
 
 After all, it seems that the length of all rational numbers is just 0. This way, we have found that $\mu(\mathbb{Q})=0$ for length measure $\mu$ and that $\mathbb{Q}$ is a null set under that measure.
-\newline\indent Similarly, we can try to find what would be the measure of the line within $\mathbb{R}^2$, given standard measure for rectangle area $\mu$. Lets take a straight strip of plane, with width $w$, and place it over this line, such that line is in the middle. Now, we partition this strip into rectangles that have width $w$, just like the strip, and length $l$. Every rectangle now covers portion of the line with length $l$. All that is left to do now, is to shrink rectangles. As we do this, they become line segments with no area. If $p$ is the given line, $S$ chosen strip, $R_i$ rectangles, and $\mu$ standard measure for rectangle area, we have
+\newline\indent Similarly, we can try to find what would be the measure of the line within $\mathbb{R}^2$, given standard measure for rectangle area $\mu$. Lets take a straight strip of plane, with width $w$, and place it over this line, such that the line is in the middle. Now, we partition this strip into rectangles that have width $w$, just like the strip, and length $l$. Every rectangle now covers portion of the line with length $l$. All that is left to do now, is to shrink rectangles. As we do this, they become line segments with no area. If $p$ is the given line, $S$ chosen strip, $R_i$ rectangles, and $\mu$ standard measure for rectangle area, we have
 
 \[\mu(p)=\lim_{w \to 0}\mu(S)=\lim_{w \to 0}\sum\mu(R_i)=\lim_{w \to 0}\sum lw=0\]
 
@@ -142,7 +148,7 @@ If we define this, it allows us to create a new measure space where we don't hav
 
 \[ N=\{X:X \subseteq B,\;B \in S,\;\mu(B)=0\} \]
 
-Now, we will expand measure space $M$ in the sense that we will make more things measurable by expanding $\sigma$-algebra $S$. To do this, we will use property of measure of unions. Since a measure of a union of sets is a sum of measures of those sets, we know that the following must hold
+Now, we will expand measure space $M$ in the sense that we will make more things measurable by expanding $\sigma$-algebra $S$. To do this, we will use property of measure of unions. Since a measure of a union of disjoint sets is a sum of measures of those sets, we know that the following must hold
 
 \[ \mu(A)=0,\;D \in S \implies \mu(D \cup A)=\mu(D)+\mu(A)=\mu(D) \]
 
@@ -169,11 +175,24 @@ The whole point of doing this is to, in a sense, have a space to work with, with
 
 In this case, there is only one null set $\{b,c\}$, apart from empty set. Therefore, a set containing all subsets of null sets is
 
-\[N=\{\varnothing, \{a\}, \{b\}, \{a,b\}\}\]
+\[N=\{\varnothing, \{b\}, \{c\}, \{b,c\}\}\]
 
-Combining this with $\sigma$-algebra $S$ using union, we get
+Combining this with $\sigma$-algebra $S$ using unions between elements, we get
 
-\[ S_{L}=\{\} \]
+\[ S_{L}=\{\varnothing,\{a\},\{b\},\{c\},\{a,b\},\{a,c\},\{b,c\},\{a,b,c\}\} \]
+
+Now, we can have a new measure function under which more sets are measurable
+
+\[ \mu_{L}=\begin{cases}
+    \varnothing & \to 0 \\
+    \{a\} & \to 1 \\
+    \{b\} & \to 0 \\
+    \{c\} & \to 0 \\
+    \{a,b\} & \to 1 \\
+    \{a,c\} & \to 1 \\
+    \{b,c\} & \to 0 \\
+    \{a,b,c\} & \to 1
+\end{cases} \]
 
 \subsection{Examples of measures}
 
@@ -182,11 +201,43 @@ Before moving on, here are some examples of measures.
 \subsubsection{Borel measure on $\mathbb{R}^n$}
 This is a measure that is defined on the so called Borel algebra, which is a specific $\sigma$-algebra (note that the Borel algebra is more general, but we only consider Euclidean spaces). Before its definition, lets consider what it represents in 2-dimensional Euclidean space. There, it tries to say that any rectangle in the plane is measurable and assigns area to it. To represent arbitrary rectange, we will use Cartesian product of two ranges $[a_1, b_1]\times[a_2, b_2]$, which just gives us a new set that contains all possible pairs of points with first coordinate from the first range, and second coordinate from the second range. Now, we just say that all such rectangles are measurable by putting them into $\sigma$-algebra. Additionally, we naturally assign area to them by constructing measure $\mu$, such that
 \[\mu([a_1, b_1]\times[a_2, b_2])=(b_1-a_1)(b_2-a_2)\]
-which is just a standard rectangle area. Using this, we can combine rectangles in the plane to approximate some weird shape. Then, we can find area of this shape by summing areas of rectangles, because we know it is measurable since it is a union of measurable rectangles. In order to have $\sigma$-algebra, apart from rectangles, we also need to add all possible unions of rectangles, and complements of all elements, since they are also measurable.
+which is just a standard rectangle area. Using this, we can combine rectangles in the plane to approximate some weird shape. Then, we can find area of this shape by summing areas of rectangles, because we know it is measurable since it is a union of measurable rectangles. In order to have $\sigma$-algebra, apart from rectangles, we also need to add all possible unions of rectangles, and complements of all elements of $\sigma$-algebra, since they are also measurable.
 \newline\indent To extend this to $\mathbb{R}^n$, we just need a way to represent n-dimensional rectangles and their volume. We represent rectangles using Cartesian products and their volume using the product of lengths of their sides. Represented with formulas, this is n-dimensional rectangle with its measure:
 
 \[ [a_1,b_1]\times[a_2,b_2]\times\dots\times[a_n,b_n] = \prod_{i=1}^{n}[a_i,b_i] \]
 \[ \mu(\prod_{i=1}^{n}[a_i,b_i])=(b_1-a_1)(b_2-a_2)\dots(b_n-a_n)=\prod_{i=1}^{n}(b_i-a_i) \]
+
+Combining these things, we get a Borel measure space on $\mathbb{R}^n$, usually denoted $\mathfrak{B}(\mathbb{R}^n)$.
+
+\subsubsection{Lebesgue measure on $\mathbb{R}^n$}
+This measure is a part of the measure space that is the completion of previous Borel space $\mathfrak{B}(\mathbb{R}^n)$. Comparing the two, intuition is that $\mathfrak{B}(\mathbb{R}^n)$ is in some sense a minimal space that we need to have, in order for something like length to be consistent. On the other hand, we can see Lebesgue measure space as a maximal space that we can operate on such that the same notion holds.
+
+\subsubsection{Counting measure}
+Lets say that we have some countable set $G$ and $\sigma$-algebra that is the complete power set of $G$. Then, we define a measure of some set to be its cardinality.
+
+\[ \mu(A)=|A| \]
+
+Counting measure space would then be a triplet $(G,2^G,\mu)$, where $2^G$ is a power set of $G$.
+
+\subsubsection{Dirac measure}
+Given some set $G$, and the corresponding $\sigma$-algebra, we can define a measure that will assign 1 to any set that contains specific element from $G$, and 0 otherwise. If the specific element is $g \in G$, then the Dirac measure is
+
+\[ \delta_g(A)=\begin{cases}
+    1 & g \in A \\
+    0 & g \notin A
+\end{cases} \]
+
+\subsubsection{Spacial angle measure}
+Imagine a unit ball in $\mathbb{R}^2$ and some spacial angle $\Omega$. We can see this spacial angle as a collection of direction vectors. Now, we can collect all points on the sphere where it intersects these vectors into a set $X$. Spherical area of $X$, denoted by $A(X)$ is a measure, and since there is a mapping between $\Omega$ and $X$, it is also a measure for spacial angle $\Omega$.
+
+\subsubsection{Subspace measure}
+Lets say that we are given a measure space $(G,S,\mu)$. We will define a new measure space that is based on a subset $P$ of $G$. This new measure space is the triplet $(P,S|_P,\mu|_P)$ where
+
+\[P \in S \]
+\[ S|_P=\{A \cap P: A \in S\} \]
+\[ \mu|_P(A \cap P)=\mu(A \cap P) \]
+
+What this means is that we can take some measurable subset and define a new measure space on it in such a way that we carry over existing measure. Since chosen subset is measurable, then its intersection with another measurable subset in also measurable under the same measure, meaning that we can start constructing $\sigma$-algebra from these intersections.
 
 \section{Lebesgue integral}
 Lebesgue integration is one of the main notions that will be introduced because it is required for integration of more exotic functions and it also offers a nice conceptual framework for defining things like radiance in a more measure theoretic way.
