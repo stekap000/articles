@@ -113,20 +113,20 @@ If we have a measure $\mu$, then a null set $N$, with respect to that measure, i
 
 \[ \mu(N) = 0 \]
 
-We know that empty set is always a null set. An example of a null set that is not an empty set is the following. Lets imagine a real line and focus on rational numbers. We will try to cover all the rational numbers using sticks. We start with a stick of size $1$ and place it onto the first rational number. This can be done because they are countable ie. it is possible to find a bijection $\mathbb{Q}\to\mathbb{N}$. Our first stick will cover more than one rational number, but we don't care as long as the first one is covered. Next, we cover second rational number with stick of size $\frac{1}{2}$, third one with the stick of size $\frac{1}{4}$ etc. We do this for all rational numbers, and we end up with the total length $L$ for all sticks.
+We know that empty set is always a null set. An example of a null set that is not an empty set is the following. Lets imagine a real line and focus on rational numbers. We will try to cover all the rational numbers using sticks. We start with a stick of size $1$ and place it onto the first rational number. This can be done because they are countable ie. it is possible to find a bijection $\mathbb{Q}\to\mathbb{N}$. Our first stick will cover more than one rational number, but we don't care as long as the first one is covered. Next, we cover second rational number with stick of the size $\frac{1}{2}$, third one with the stick of size $\frac{1}{4}$ etc. We do this for all rational numbers, and we end up with the total length $L$ for all sticks.
 
 \[ L=\sum_{i=0}^{\infty}\frac{1}{2^i}=2\]
 
 This means that we can cover all rational numbers with length 2. But, nothing stops us from using smaller sticks. For example, first stick can have the size of $\frac{1}{10000}$, second $\frac{1}{10000^2}$ etc. By looking at the limit, where stick sizes approach 0, the total length also approaches zero.
 
-\[ \lim_{x \to 0}\sum_{i=1}^{\infty}\frac{1}{x^i}=\lim_{x \to 0}(\sum_{i=0}^{\infty}\frac{1}{x^i}-1)=\lim_{x \to 0} (\frac{1}{1-x} - 1)=0 \]
+\[ \lim_{x \to 0}\sum_{i=1}^{\infty}x^i=\lim_{x \to 0}(\sum_{i=0}^{\infty}x^i-1)=\lim_{x \to 0} (\frac{1}{1-x} - 1)=0 \]
 
 After all, it seems that the length of all rational numbers is just 0. This way, we have found that $\mu(\mathbb{Q})=0$ for length measure $\mu$ and that $\mathbb{Q}$ is a null set under that measure.
-\newline\indent Similarly, we can try to find what would be the measure of the line within $\mathbb{R}^2$, given standard measure for rectangle area $\mu$. Lets take a straight strip of plane, with width $w$, and place it over this line, such that the line is in the middle. Now, we partition this strip into rectangles that have width $w$, just like the strip, and length $l$. Every rectangle now covers portion of the line with length $l$. All that is left to do now, is to shrink rectangles. As we do this, they become line segments with no area. If $p$ is the given line, $S$ chosen strip, $R_i$ rectangles, and $\mu$ standard measure for rectangle area, we have
+\newline\indent Similarly, we can try to find what would be the measure of the line within $\mathbb{R}^2$, given standard measure for rectangle area $\mu$. Lets take a straight strip of the plane, with width $w$, and place it over this line, such that the line is in the middle. Now, we partition this strip into rectangles that have width $w$, just like the strip, and length $l$. Every rectangle now covers portion of the line with length $l$. All that is left to do now, is to shrink rectangles. As we do this, they become line segments with no area. If $p$ is the given line, $S$ chosen strip, $R_i$ rectangles, and $\mu$ standard measure for rectangle area, we have
 
 \[\mu(p)=\lim_{w \to 0}\mu(S)=\lim_{w \to 0}\sum\mu(R_i)=\lim_{w \to 0}\sum lw=0\]
 
-Lets take countable number of distinct lines in $\mathbb{R}^2$. Then, we can use the same argument, just with multiple strips, to show that the measure of their union is 0. To not clutter formulas with even more symbols, we ignore strip intersections which would have the shape of parallelograms whose sides would tend to 0 as strip width goes to zero (we would need to subctract these areas from the sum under the limit below).
+Lets take a countable number of distinct lines in $\mathbb{R}^2$. Then, we can use the same argument, just with multiple strips, to show that the measure of their union is 0. To not clutter formulas with even more symbols, we ignore strip intersections which would have the shape of parallelograms whose sides would tend to 0 as strip width goes to zero (we would need to subctract these areas from the sum under the limit below).
 
 \[ \mu(\bigcup p_i) = \lim_{w \to 0}\mu(\bigcup S_i) = \lim_{w \to 0}\sum\mu(S_i) = 0 \]
 
@@ -217,7 +217,7 @@ Lets say that we have some countable set $G$ and $\sigma$-algebra that is the co
 
 \[ \mu(A)=|A| \]
 
-Counting measure space would then be a triplet $(G,2^G,\mu)$, where $2^G$ is a power set of $G$.
+Counting measure space would then be a triplet $(G,\mathcal{P}(G),\mu)$, where $\mathcal{P}(G)$ is a power set of $G$.
 
 \subsubsection{Dirac measure}
 Given some set $G$, and the corresponding $\sigma$-algebra, we can define a measure that will assign 1 to any set that contains specific element from $G$, and 0 otherwise. If the specific element is $g \in G$, then the Dirac measure is
