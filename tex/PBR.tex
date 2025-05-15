@@ -1,0 +1,136 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{bbm}
+\usepackage{mathabx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{PBR}
+\author{Stefan Kapetanović}
+\date{May 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Got tired of learning and forgetting definitions for various quantities in radiometry that are needed for physically based rendering, and decided to place them in one document for quick reference.
+\end{abstract}
+
+\section{Poynting Vector S}
+
+This section is not necessary for other sections. It just provides ground by showing where the Poynting vector comes from, since it is used to define radiant energy.
+
+\[\]
+
+Electromagnetic force acting on local charges $dq$ with same velocities $\mathbf{v}$ is the sum of electric and magnetic forces acting on them, and is equal to
+
+\[ \mathbf{F} = dq\mathbf{E} + dq\mathbf{v} \times \mathbf{B} = dq(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \]
+
+To derive the Poynting vector $\mathbf{S}$, we will start with the work-energy theorem that states that the change in kinetic energy is equal to the work done on the system (here charges) by the net force. If we denote the energy by $W$, assuming that it depends on time and volume, and charge movement vector by $\mathbf{r}$, then the average energy change is
+
+\[ \Delta W = dq(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \cdot \mathbf{\Delta r} \]
+
+We get instantaneous energy change for infinitesimal movement $\mathbf{dr}$
+
+\[ dW = dq(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \cdot \mathbf{dr} \]
+
+Further, since we know that the velocity is $\mathbf{v}$, then $\mathbf{dr} = \mathbf{v}dt$ and we get
+
+\[ dW = dq(\mathbf{E} + \mathbf{v} \times \mathbf{B}) \cdot \mathbf{v}dt \]
+
+This equation can be simplified by applying the dot product, since the dot product between $\mathbf{v}$ and $\mathbf{v} \times \mathbf{B}$ is always 0, no matter what $\mathbf{B}$ is (because of orthogonality).
+
+\[ dW = dq\mathbf{v}\cdot\mathbf{E}dt + (\mathbf{v} \times \mathbf{B}) \cdot \mathbf{v}dt \]
+\[ dW = dq\mathbf{v}\cdot\mathbf{E}dt \]
+
+Local charges $dq$ that have the same velocity can be expressed via charge density $\rho$. Since we have velocity $\mathbf{v}$ in equation, we can then combine it with charge density to get current density $\mathbf{J}$. The reason for doing that, is that we can then express $\mathbf{J}$ using Ampere's Law and that way further develop the equation. First, if $\rho$ represents volume charge density, we have
+
+\[ dq = \rho dV \]
+
+Secondly, we show that $\mathbf{J} = \rho\mathbf{v}$. Current density $\mathbf{J}$ is defined as the limiting ratio between current flow through area $A$ and the given area $A$ that is orthogonal to the movement direction of charges
+
+\[ \mathbf{J} = \lim_{A \to 0} \frac{I}{A} \]
+
+If we now observe some small time period $\Delta t$, we know that in that time, all charges that are at the distance $\mathbf{v} \Delta t$ from $A$ will go through $A$ (we observe only orthogonal movement in one direction). The amount of such charge, given volume charge density $\rho$, is
+
+\[ \Delta Q = \rho \Delta V = \rho A \mathbf{v}\Delta t \]
+\[ \frac{\Delta Q}{A \Delta t} = \rho\mathbf{v} \]
+
+As the time period and area become infinitesimal, we get
+
+\[ \lim_{A \to 0} \lim_{\Delta t \to 0} \frac{\Delta Q}{A \Delta t} = \lim_{A \to 0} \frac{dQ}{Adt} = \lim_{A \to 0} \frac{I}{A} = \mathbf{J} \]
+
+Therefore, we have shown that
+
+\[ \mathbf{J} = \rho\mathbf{v} \]
+
+Going back to the equation
+
+\[ dW = dq\mathbf{v}\cdot\mathbf{E}dt \]
+
+and substituting $dq = \rho dV$, we get
+
+\[ dW = \rho dV \mathbf{v}\cdot\mathbf{E}dt \]
+
+Using $J = \rho \mathbf{v}$, we get
+
+\[ dW = \mathbf{J} \cdot \mathbf{E} dVdt \]
+
+Since we now have $\mathbf{J}$ in equation, we can express it using Ampere's Law
+
+\[ \nabla \times \mathbf{H} = \frac{\partial\mathbf{D}}{\partial t} + \mathbf{J} \]
+\[ \mathbf{J} = \nabla \times \mathbf{H} - \frac{\partial\mathbf{D}}{\partial t} \]
+
+Substituting this into equation for $dW$ gives us
+
+\[ dW = (\nabla \times \mathbf{H} - \frac{\partial \mathbf{D}}{\partial t}) \cdot \mathbf{E} dVdt \]
+
+\[ dW = (\nabla \times \mathbf{H}) \cdot \mathbf{E}dVdt - \frac{\partial \mathbf{D}}{\partial t} \cdot \mathbf{E}dVdt \]
+
+Now we can try to somehow transform this formula in order to get $(\nabla \times \mathbf{E})$ term, so that we can use Faraday's Law. For this, we will use the following general identity from vector analysis. If we have two arbitrary vectors $\mathbf{A}$ and $\mathbf{B}$, then this holds
+
+\[ \nabla \cdot (\mathbf{A} \times \mathbf{B}) = (\nabla \times \mathbf{A}) \cdot \mathbf{B} - \mathbf{A} \cdot (\nabla \times \mathbf{B}) \]
+
+In formula for $dW$, we have $(\nabla \times \mathbf{H}) \cdot \mathbf{E}$, which in the previous general identity is the first term of RHS. In our case, this identity becomes
+
+\[ \nabla \cdot (\mathbf{H} \times \mathbf{E}) = (\nabla \times \mathbf{H}) \cdot \mathbf{E} - \mathbf{H} \cdot (\nabla \times \mathbf{E}) \]
+
+This gives us
+
+\[ (\nabla \times \mathbf{H}) \cdot \mathbf{E} = \nabla \cdot (\mathbf{H} \times \mathbf{E}) + \mathbf{H} \cdot (\nabla \times \mathbf{E}) \]
+
+Substituting in formula for $dW$, we get
+
+\[ dW = (\nabla \cdot (\mathbf{H} \times \mathbf{E}) + \mathbf{H} \cdot (\nabla \times \mathbf{E}))dVdt - \frac{\partial \mathbf{D}}{\partial t} \cdot \mathbf{E}dVdt \]
+
+The term $(\nabla \times \mathbf{E})$ now appears in formula and we can use Faraday's Law to substitute another expression in its place. Faraday's Law is given by
+
+\[ \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t} \]
+
+Substituting in formula for $dW$, and rearranging the terms, we get the following
+
+\[ dW = (\nabla \cdot (\mathbf{H} \times \mathbf{E}) - \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \frac{\partial \mathbf{D}}{\partial t} \cdot \mathbf{E}dVdt \]
+
+\[ dW = (- \nabla \cdot (\mathbf{E} \times \mathbf{H}) - \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \frac{\partial \mathbf{D}}{\partial t} \cdot \mathbf{E}dVdt \]
+
+\[ dW = -(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \nabla \cdot (\mathbf{E} \times \mathbf{H})dVdt \]
+
+We can already see Poynting vector in this expression which is $\mathbf{S} = (\mathbf{E} \times \mathbf{H})$. But, we can transform it further by integrating it across volume and time and applying divergence theorem to the second term ie. term holding the Poynting vector.
+
+\[ W = -\int_{T}\int_{V}(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \int_{T}\int_{V}(\nabla \cdot \mathbf{S}) dVdt \]
+
+\[ W = -\int_{T}\int_{V}(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \int_{T}\int_{\partial V}(\mathbf{S} \cdot \mathbf{n} )dAdt \]
+
+In this expression, $W$ represents the energy of the charges in volume $V$ in the time period $T$. Left RHS term represents the energy that comes from electric and magnetic fields inside the volume $V$ over time period $T$. Right RHS term represents the energy that enters or exits given volume ie. crosses the boundary $\partial V$ over time $T$. This second term is more important for us because that is what describes the energy that is dissipated by light sources. From the fact that this term is energy, we can conclude that the Poynting vector represents energy per unit area per unit time. We can also see it as energy flux per unit time.
+
+\section{Radiant Energy}
+
+\end{document}
