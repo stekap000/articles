@@ -4,6 +4,7 @@
 \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{caption}
 \usepackage{graphicx}
+\usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -11,6 +12,8 @@
 \usepackage{bbm}
 \usepackage{mathabx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\geometry{margin=1in}
 
 \title{PBR}
 \author{Stefan Kapetanović}
@@ -129,8 +132,38 @@ We can already see Poynting vector in this expression which is $\mathbf{S} = (\m
 
 \[ W = -\int_{T}\int_{V}(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \int_{T}\int_{\partial V}(\mathbf{S} \cdot \mathbf{n} )dAdt \]
 
-In this expression, $W$ represents the energy of the charges in volume $V$ in the time period $T$. Left RHS term represents the energy that comes from electric and magnetic fields inside the volume $V$ over time period $T$. Right RHS term represents the energy that enters or exits given volume ie. crosses the boundary $\partial V$ over time $T$. This second term is more important for us because that is what describes the energy that is dissipated by light sources. From the fact that this term is energy, we can conclude that the Poynting vector represents energy per unit area per unit time. We can also see it as energy flux per unit time.
+In this expression, $W$ represents the energy of the charges in volume $V$ in the time period $T$. Left RHS term represents the energy that comes from electric and magnetic fields inside the volume $V$ over time period $T$. Right RHS term represents the energy that enters or exits given volume ie. crosses the boundary $\partial V$ over time $T$. This second term is more important for us because that is what describes the energy that is dissipated by light sources. From the fact that this term is energy, we can conclude that the Poynting vector represents energy per unit area per unit time. Its direction tells us how the energy propagates. We can also characterize it as transferred power per unit area. This notion is called intensity. Intuitively, if we have some energy change per unit time ie. some power $P$, we can't conclude anything about the energy distribution. For example, let's imagine a light bulb with power $P$ and a focused flashlight with the same power. Intuitively, we expect that the flashlight will be brighter in specific direction. But, this is not something that we can conclude just based on the value of $P$. In other words, $P$ only tells us how much the energy itself changed ie. how much of it passed (entered or exited) through some naturally assigned boundary in unit time and intensity tells us how much energy went through a unit piece of boundary. Therefore, if the power is equal, but one boundary is twice as large, then every piece of larger boundary will transfer less energy ie. intensity there will be lower. Finally, we can get power by integrating intensity over some boundary.
 
-\section{Radiant Energy}
+\section{Radiation direction and spacial angle measurement}
+
+Before moving on, one important thing to note about the radiation direction is that it is not modeled just as a unit vector. Rather, it is modeled as an infinitesimal spacial angle. This is because the energy is radiated in many directions, and if we want to measure it, we would choose some spacial angle to capture it. From this, if we are interested in only one direction, we can get to it by observing the limit as the spacial angle becomes infinitesimal. Another important thing to mention is how spacial angles are measured. Imagine a light source which is just a point that radiates energy in all directions. Before even talking of spacial angles, we place a unit sphere around that light such that the center is at the light. If we now pick some spacial angle (which doesn't need to be a regular shape, nor it needs to be in only one piece), the problem is how to measure it. The way we do that is by imagining vectors going from the center in all directions that are covered by the picked spacial angle. These vectors will intersect the unit sphere, which was previously placed. All the points of intersection will form the area (or areas if spacial angle is not in one piece) on the unit sphere. Now, in order to measure the spacial angle, we just need to measure the area/areas formed by intersection points. This is the reason why spacial angles and areas on the unit sphere will be used interchangeably.
+
+\section{Radiant Energy $Q$, Radiant Flux $\Phi$ and Radiant Exposure $H$}
+
+If we imagine a closed surface $\Sigma$, then the radiant energy is the total energy that passes through that surface during some time period $T$. This is precisely the second RHS term in the last equation from the previous section (without minus). Here, we just change the symbol for the boundary. Instead of $\partial V$, which made more sense during Poynting vector derivation, because of the connection to the internal volume $V$, we now use $\Sigma$.
+
+\[ Q = \int_{T}\int_{\Sigma} (\mathbf{S} \cdot \mathbf{n})dAdt \]
+
+Since, based on previous section, the Poynting vector $\mathbf{S}$ represents intensity ie. power per unit area, that means that if we integrate it over oriented surface, we will get power. This power is called radiant flux (any power can be thought of as a flux of energy through some naturally chosen boundary).
+
+\[ \Phi = \int_{\Sigma} (\mathbf{S} \cdot \mathbf{n})dA \]
+
+But, this expression is just the time derivative of $Q$. Therefore, we get the relation between radiant energy and radiant flux.
+
+\[ \Phi = \frac{dQ}{dt} \]
+
+On the other hand, we can also integrate Poynting vector only during some time period. This way, we get the concept of radiant exposure/fluence.
+
+\[ H = \int_{T}(\mathbf{S} \cdot \mathbf{n})dA \]
+
+Similarly to radiant flux, we can see that this equation is just a derivative of $Q$ with respect to area.
+
+\[ H = \frac{dQ}{dA} \]
+
+Intuitively, if we imagine a light source, $Q$ represents the total energy that it radiates in all directions (usually modeled by the unit sphere's boundary) during some total period $T$. In order to measure it, we would place detectors in every direction around the light and keep them there for the total time period $T$. After this, we would add all of their contributions. On the other hand, flux/power $\Phi$ is the energy radiated in all directions, but in unit time. This means that in order to measure it, we would place detectors in all directions around the light and keep them there during some short time $t$. We would then add their contributions and divide by the small time $t$ to get an approximation for the power. Finally, radiant exposure/fluence $H$ is the energy radiated in only one direction, but during total time $T$. In order to measure it, we would pick only one direction of interest and place a detector there. We would then keep it for the total time $T$.
+
+
+
+\section{Irradiance $E$}
 
 \end{document}
