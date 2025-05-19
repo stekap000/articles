@@ -162,7 +162,7 @@ Similarly to radiant flux, we can see that this equation is just a derivative of
 
 Intuitively, if we imagine a light source, $Q$ represents the total energy that it radiates in all directions (usually modeled by the unit sphere's boundary) during some total period $T$. In order to measure it, we would place detectors in every direction around the light and keep them there for the total time period $T$. After this, we would add all of their contributions. On the other hand, flux/power $\Phi$ is the energy radiated in all directions, but in unit time. This means that in order to measure it, we would place detectors in all directions around the light and keep them there during some short time $t$. We would then add their contributions and divide by the small time $t$ to get an approximation for the power. Finally, radiant exposure/fluence $H$ is the energy radiated in only one direction, but during total time $T$. In order to measure it, we would pick only one direction of interest and place a detector there. We would then keep it for the total time $T$.
 
-\section{Irradiance $E$ and Radiant Exitance/Emittance M}
+\section{Irradiance $E$ and Radiant Exitance/Emittance $M$}
 
 Both of these concepts tell us how much power we are getting per unit area. The difference is in the direction of energy flow. Irradiance describes the case where energy is received by a surface and radiant exitance/emittance the case where it is emitted by a surface. Concept is similar to radiant exposure/fluence $H$, but should not be confused with it, since $H$ tells us how much of the total energy (over total time period $T$) we get per unit area. More formally, if we see these quantities as scalars, irradiance and radiant exitance/emittance are defined as
 
@@ -194,5 +194,25 @@ Since the $\Phi$ for the surface stays the same, we can find the new emittance $
 \[ M' = \frac{\Phi}{A'} = \frac{\Phi cos(\alpha)}{A} = Mcos(\alpha) \]
 
 In the same way, we can derive the identical relation for the irradiance $E$.
+
+\section{Radiant Intensity $I$}
+
+We already encountered the general notion of intensity when describing the Poynting vector. In general, it describes the power density i.e. how much power we get per unit area and therefore has the form
+
+\[ \frac{dP}{dA} \]
+
+or expressed directly with energy $E$
+
+\[ \frac{\partial^2E}{\partial A \partial t} \]
+
+This is not the same as Radiant Intensity $I$. Radiant Intensity $I$ also represents power density, but in the context of spatial angle and not the area. If we denote spatial angle by $\omega$, then $I$ is formally defined as
+
+\[ I = \frac{d\Phi}{d\omega} \]
+
+But, previously it was mentioned (in section 2) that there is no real difference between the spatial angle and the area when we use the unit sphere. In that situation, both are measured in the same way by simply measuring the area on the unit sphere. In that context, the radiant intensity $I$ and the general concept of intensity are the same
+
+\[ I = \frac{d\Phi}{d\omega} = \frac{d\Phi}{dA} \]
+
+However, if we do not work in the context of the unit sphere, for example because the distance between the light source and some surface is more than a unit radius, then these concepts are different. In that case, the radiant intensity $I$ would remain the same regardless of the distance between the light and the surface (since the angle stays the same), but the general intensity would need to be scaled using the inverse square law, medium dissipation, etc. (since the same angle encompasses a larger area as the distance grows).
 
 \end{document}
