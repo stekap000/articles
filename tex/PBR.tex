@@ -126,13 +126,13 @@ Substituting in formula for $dW$, and rearranging the terms, we get the followin
 
 \[ dW = -(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \nabla \cdot (\mathbf{E} \times \mathbf{H})dVdt \]
 
-We can already see Poynting vector in this expression which is $\mathbf{S} = (\mathbf{E} \times \mathbf{H})$. But, we can transform it further by integrating it across volume and time and applying divergence theorem to the second term ie. term holding the Poynting vector.
+We can already see Poynting vector in this expression which is $\mathbf{S} = (\mathbf{E} \times \mathbf{H})$. But, we can transform it further by integrating it across volume and time and applying divergence theorem to the second term i.e. term holding the Poynting vector.
 
 \[ W = -\int_{T}\int_{V}(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \int_{T}\int_{V}(\nabla \cdot \mathbf{S}) dVdt \]
 
 \[ W = -\int_{T}\int_{V}(\mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t})dVdt - \int_{T}\int_{\partial V}(\mathbf{S} \cdot \mathbf{n} )dAdt \]
 
-In this expression, $W$ represents the energy of the charges in volume $V$ in the time period $T$. Left RHS term represents the energy that comes from electric and magnetic fields inside the volume $V$ over time period $T$. Right RHS term represents the energy that enters or exits the given volume ie. crosses the boundary $\partial V$ over time $T$. This second term is more important for us because that is what describes the energy that is dissipated by light sources. From the fact that this term is energy, we can conclude that the Poynting vector represents energy per unit area per unit time. Its direction tells us how the energy propagates. We can also characterize it as transferred power per unit area. This notion is called intensity. Intuitively, if we have some energy change per unit time ie. some power $P$, we can't conclude anything about the energy distribution. For example, let's imagine a light bulb with power $P$ and a focused flashlight with the same power. Intuitively, we expect that the flashlight will be brighter in specific direction. But, this is not something that we can conclude just based on the value of $P$. In other words, $P$ only tells us how much the energy itself changed ie. how much of it passed (entered or exited) through some naturally assigned boundary in unit time and intensity tells us how much energy went through a unit piece of boundary in unit time. Therefore, if the power is equal, but one boundary is twice as large, then every piece of larger boundary will transfer less energy ie. intensity there will be lower. Finally, we can get power by integrating intensity over some boundary.
+In this expression, $W$ represents the energy of the charges in volume $V$ in the time period $T$. Left RHS term represents the energy that comes from electric and magnetic fields inside the volume $V$ over time period $T$. Right RHS term represents the energy that enters or exits the given volume i.e. crosses the boundary $\partial V$ over time $T$. This second term is more important for us because that is what describes the energy that is dissipated by light sources. From the fact that this term is energy, we can conclude that the Poynting vector represents energy per unit area per unit time. Its direction tells us how the energy propagates. We can also characterize it as transferred power per unit area. This notion is called intensity. Intuitively, if we have some energy change per unit time i.e. some power $P$, we can't conclude anything about the energy distribution. For example, let's imagine a light bulb with power $P$ and a focused flashlight with the same power. Intuitively, we expect that the flashlight will be brighter in specific direction. But, this is not something that we can conclude just based on the value of $P$. In other words, $P$ only tells us how much the energy itself changed i.e. how much of it passed (entered or exited) through some naturally assigned boundary in unit time and intensity tells us how much energy went through a unit piece of boundary in unit time. Therefore, if the power is equal, but one boundary is twice as large, then every piece of larger boundary will transfer less energy i.e. intensity there will be lower. Finally, we can get power by integrating intensity over some boundary.
 
 \section{Radiation direction and spatial angle measurement}
 
@@ -144,7 +144,7 @@ If we imagine a closed surface $\Sigma$, then the radiant energy is the total en
 
 \[ Q = \int_{T}\int_{\Sigma} (\mathbf{S} \cdot \mathbf{n})dAdt \]
 
-Since, based on previous section, the Poynting vector $\mathbf{S}$ represents intensity ie. power per unit area, that means that if we integrate it over oriented surface, we will get power. This power is called radiant flux (any power can be thought of as a flux of intensity through some naturally chosen boundary).
+Since, based on previous section, the Poynting vector $\mathbf{S}$ represents intensity i.e. power per unit area, that means that if we integrate it over oriented surface, we will get power. This power is called radiant flux (any power can be thought of as a flux of intensity through some naturally chosen boundary).
 
 \[ \Phi = \int_{\Sigma} (\mathbf{S} \cdot \mathbf{n})dA \]
 
@@ -162,10 +162,37 @@ Similarly to radiant flux, we can see that this equation is just a derivative of
 
 Intuitively, if we imagine a light source, $Q$ represents the total energy that it radiates in all directions (usually modeled by the unit sphere's boundary) during some total period $T$. In order to measure it, we would place detectors in every direction around the light and keep them there for the total time period $T$. After this, we would add all of their contributions. On the other hand, flux/power $\Phi$ is the energy radiated in all directions, but in unit time. This means that in order to measure it, we would place detectors in all directions around the light and keep them there during some short time $t$. We would then add their contributions and divide by the small time $t$ to get an approximation for the power. Finally, radiant exposure/fluence $H$ is the energy radiated in only one direction, but during total time $T$. In order to measure it, we would pick only one direction of interest and place a detector there. We would then keep it for the total time $T$.
 
-\section{Irradiance $E$}
+\section{Irradiance $E$ and Radiant Exitance/Emittance M}
 
-Irradiance is a concept that tells us how much power we are getting per unit area. It is similar to radiant exposure/fluence $H$, but should not be confused with it, since $H$ tells us how much of the total energy (over total time period $T$) are we getting per unit area. More formally, irradiance is defined as
+Both of these concepts tell us how much power we are getting per unit area. The difference is in the direction of energy flow. Irradiance describes the case where energy is received by a surface and radiant exitance/emittance the case where it is emitted by a surface. Concept is similar to radiant exposure/fluence $H$, but should not be confused with it, since $H$ tells us how much of the total energy (over total time period $T$) we get per unit area. More formally, if we see these quantities as scalars, irradiance and radiant exitance/emittance are defined as
 
-\[ E = \frac{\partial \Phi}{\partial A} \]
+\[ M = E = \frac{\partial \Phi}{\partial A} \]
+
+ However, if we are in a situation where we are observing some small area that is receiving and emitting the energy, then we would need to take into account the directions of energy flows. In such a case, these quantities are opposite in sign. As an example, given the flux $\Phi_1$ from one side and the flux $\Phi_2$ from the other, and assuming that the irradiance $E$ coincides with the arbitrarily assigned positive direction, the total power per unit area would be
+
+ \[ E - M = \frac{\partial \Phi_1}{\partial A} - \frac{\partial \Phi_2}{\partial A} =  \frac{\partial (\Phi_1 - \Phi_2)}{\partial A} \]
+
+ As another example, we can use the concept of irradiance to derive Lambert's cosine law, given the proper assumptions under which it holds. The law simply states that if the perfectly diffuse surface reflects (or radiates) some energy, and we observe it under some angle (with respect to the surface normal), then the observed radiation (more precisely intensity) is scaled by the cosine of the given angle. To derive this, we first assume that the surface is perfectly diffuse (does not exist in practice), meaning that the reflected light will have the same intensity in all directions. What this assumption means is that the energy reflected/radiated in all directions is the same, which means that it can be expressed with a single number, as opposed to a function which would depend on the output direction. This is the reason why it is sometimes useful to approximate certain surfaces as perfectly diffuse. Another thing that we assume is that the radiation is coming from the surface that we observe. This radiation can be the result of reflection or emission (irrelevant in this derivation). If the flux is $\Phi$ and the small circular area is $A$, then the radiant emittance is
+
+ \[ M = \frac{\Phi}{A} \]
+
+This is what we observe when looking directly at a small circular surface (circular because we capture light within a cone). If we now start looking from the side, at an angle $\alpha$ with respect to the surface normal, we know that we would see the same emittance $M$ if we also rotate the surface by $\alpha$ i.e. move its normal to match our view direction, because it is the same situation as before. This means that viewing it from the side at an angle $\alpha$ is the same as not changing the view direction but rotating the surface by an angle $\alpha$ in opposite direction. Since we made an assumption that the surface is perfectly diffuse, we can take it as granted that the infinitesimal radiation in some angled direction is the same as in any other direction i.e. only area size will impact the amount of radiation in some small direction. Now, our view cone's intersection with the surface is not circular anymore. Instead, it is an ellipse, where the minor axis stays the same as the previous circular area radius, but the major axis, which lies in the plane defined by a surface normal and view direction, is now elongated. We know that the angle between the radius of the circular area $r$ and the major ellipse axis $a$ is $\alpha$. Since they form a small triangle in the limit where cone rays become parallel, the relation between them is
+
+\[ a = \frac{r}{cos(\alpha)} \]
+
+If the prior circular area is $A$ and a new elliptic area is $A'$ then we have
+
+\[ A = r^2\pi \]
+\[ A' = ab\pi \]
+
+Since the minor axis $b$ stays the same and equals $r$ and the major gets elongated as in the previous relation, the elliptic area is then
+
+\[ A' = \frac{r}{cos(\alpha)}r\pi = \frac{r^2\pi}{cos(\alpha)} = \frac{A}{cos(\alpha)} \]
+
+Since the $\Phi$ for the surface stays the same, we can find the new emittance $M'$ for the angled view
+
+\[ M' = \frac{\Phi}{A'} = \frac{\Phi cos(\alpha)}{A} = Mcos(\alpha) \]
+
+In the same way, we can derive the identical relation for the irradiance $E$.
 
 \end{document}
