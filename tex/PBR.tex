@@ -199,20 +199,40 @@ In the same way, we can derive the identical relation for the irradiance $E$.
 
 We already encountered the general notion of intensity when describing the Poynting vector. In general, it describes the power density i.e. how much power we get per unit area and therefore has the form
 
-\[ \frac{dP}{dA} \]
+\[ \frac{\partial P}{\partial A} \]
 
 or expressed directly with energy $E$
 
 \[ \frac{\partial^2E}{\partial A \partial t} \]
 
-This is not the same as Radiant Intensity $I$. Radiant Intensity $I$ also represents power density, but in the context of spatial angle and not the area. If we denote spatial angle by $\omega$, then $I$ is formally defined as
+In the context of radiometry, power $P$ is flux $\Phi$, so the general intensity is just irradiance $E$. This is NOT the same as Radiant Intensity $I$. Radiant Intensity $I$ also represents power density, but in the context of the spatial angle and not the area. If we denote spatial angle by $\omega$, then $I$ is formally defined as
 
-\[ I = \frac{d\Phi}{d\omega} \]
+\[ I = \frac{\partial \Phi}{\partial \omega} \]
 
-But, previously it was mentioned (in section 2) that there is no real difference between the spatial angle and the area when we use the unit sphere. In that situation, both are measured in the same way by simply measuring the area on the unit sphere. In that context, the radiant intensity $I$ and the general concept of intensity are the same
+But, previously it was mentioned (in section 2) that there is no real difference between the spatial angle and the area when we use the unit sphere. In that situation, both are measured in the same way by simply measuring the area on the unit sphere. In that context, the radiant intensity $I$ and the general concept of intensity i.e. irradiance $E$ are the same
 
-\[ I = \frac{d\Phi}{d\omega} = \frac{d\Phi}{dA} \]
+\[ I = \frac{\partial \Phi}{\partial \omega} = \frac{\partial \Phi}{\partial A} = E \]
 
-However, if we do not work in the context of the unit sphere, for example because the distance between the light source and some surface is more than a unit radius, then these concepts are different. In that case, the radiant intensity $I$ would remain the same regardless of the distance between the light and the surface (since the angle stays the same), but the general intensity would need to be scaled using the inverse square law, medium dissipation, etc. (since the same angle encompasses a larger area as the distance grows).
+However, if we do not work in the context of the unit sphere, for example because the distance between the light source and some surface is more than a unit radius, then these concepts are different. In that case, the radiant intensity $I$ would remain the same regardless of the distance between the light and the surface (since the angle stays the same), but the irradiance $E$ would need to be scaled using the inverse square law (since the same angle encompasses a larger area as the distance grows).
+
+\section{Radiance $L$}
+
+Before defining this concept, let's first go back to the concept of irradiance $E$. We imagine a surface and we focus on an infinitesimal patch of this surface for which we assume that every point on it receives the same amount of energy in unit time (same amount of power). Irradiance describes this power. If there are two different light sources emitting light from different directions, then the irradiance $E$ can only answer the questions about the total received power from both lights, by a point on the infinitesimal patch of surface. It can't tell us how much power did a point on infinitesimal patch receive from some direction i.e. from some spatial angle. This is what radiance $L$ tries to describe. Since both direction and area are at play in the definition for the radiance, we will need to take into account scaling that is the result of specific direction, just like we did in the example for Lambert's cosine law (section 4). The reason for this is that under some angle, the same amount of energy falls on the larger area, meaning that one point of that area receives less energy. First, if we only focus on the case where the infinitesimal spatial angle $\partial \omega$ is orthogonal to the infinitesimal surface $\partial A$, a natural definition, given what radiance tries to describe, is
+
+\[ L = \frac{\partial^2 \Phi}{\partial A \partial \omega} \]
+
+However, if the flux is coming from some direction that is at the angle $\theta$ with respect to the surface normal, then the infinitesimal area $\partial A$ becomes elongated (just like in the example in section 4). If we use $\partial A^\bot$ to denote the infinitesimal area as it would be if the angle $\theta$ was 0 i.e. the infinitesimal area that, when protected orthogonally to the surface, gives infinitesimal area $\partial A$, then we get the relation
+
+\[ \partial A = \frac{\partial A^\bot}{cos(\theta)} \]
+
+Combining the two formulas, we get
+
+\[ L = \frac{\partial^2 \Phi }{\partial A^\bot \partial \omega} cos(\theta) \]
+
+Now, important thing to note is that this is a valid definition for radiance, but it is not the standard definition. In fact, the standard definition just drops the cosine term
+
+\[ L = \frac{\partial^2 \Phi }{\partial A^\bot \partial \omega} \]
+
+The reason for this is the following. Often, when things are defined, we want to express them concisely, in a sense that we want to include only the necessary information. This means that if there are additional terms like the scaling terms or some other transformation terms, we realise that they are not fundamental i.e. intrinsic to the notion being defined and instead depend on the context in which we use the given notion. Therefore, we don't include them in the definition and instead worry about adding them when the context is known. For example, when defining a parabola, we don't usually express it in a general way, where we would also cover the cases of rotated parabolas in the plane. Instead, if we have the rotated parabola in some context, we simply define the rotation transformation $R$ and apply it to the "ordinary" parabola. In the same way, if we are looking for the radiance under some angle $\theta$, we will use the scaling transformation $cos(\theta)$ on the original definition to take the context into account.
 
 \end{document}
