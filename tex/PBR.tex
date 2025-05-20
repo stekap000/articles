@@ -24,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-Got tired of learning and forgetting definitions for various quantities in radiometry that are needed for physically based rendering, and decided to place them in one document for quick reference.
+Got tired of forgetting and confusing definitions for various quantities in radiometry and photometry that are needed for physically based rendering, and decided to derive and explain them in a way that I find useful.
 \end{abstract}
 
 \section{Poynting Vector S}
@@ -234,5 +234,15 @@ Now, important thing to note is that this is a valid definition for radiance, bu
 \[ L = \frac{\partial^2 \Phi }{\partial A^\bot \partial \omega} \]
 
 The reason for this is the following. Often, when things are defined, we want to express them concisely, in a sense that we want to include only the necessary information. This means that if there are additional terms like the scaling terms or some other transformation terms, we realise that they are not fundamental i.e. intrinsic to the notion being defined and instead depend on the context in which we use the given notion. Therefore, we don't include them in the definition and instead worry about adding them when the context is known. For example, when defining a parabola, we don't usually express it in a general way, where we would also cover the cases of rotated parabolas in the plane. Instead, if we have the rotated parabola in some context, we simply define the rotation transformation $R$ and apply it to the "ordinary" parabola. In the same way, if we are looking for the radiance under some angle $\theta$, we will use the scaling transformation $cos(\theta)$ on the original definition to take the context into account.
+
+\section{Frequencies}
+
+In all previous derivations, different frequencies were not explicitly taken into account. The reason for this is that the way they are handled is the same for all defined quantities. If the given radiometric quantity is $X$, then, in addition to other variables, it also depends on the frequency $\lambda$. Therefore, as an example, if radiation carries more power in some frequency range $(\lambda_1, \lambda_2)$, we would expect that irradiance $E$ for that range has a higher value. With this in mind, we can define spectral versions of all previous radiometric quantities. Given a quantity $X$, its spectral version $X_\lambda$, for some frequency $\lambda$ is
+
+\[ X_\lambda = \frac{\partial X}{\partial \lambda} \]
+
+This then allows us to talk about the given quantity $X$ over some frequency range $(\lambda_1, \lambda_2)$ by integrating the spectral versions in that range
+
+\[ X = \int_{\lambda_1}^{\lambda_2} X_\lambda d\lambda \]
 
 \end{document}
